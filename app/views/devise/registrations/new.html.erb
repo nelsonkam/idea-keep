@@ -1,34 +1,42 @@
-<h2>Sign up</h2>
+<div class="min-h-screen bg-purple flex justify-center items-center">
+  <div class="bg-white w-full shadow-md rounded-lg p-4 mx-4" style="max-width: 360px;">
+    <p class="text-2xl text-center font-bold text-black mb-3">Sign Up</p>
+    <%= form_for(resource, html: { class: "flex flex-col text-grey" }, as: resource_name, url: registration_path(resource_name)) do |f| %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+      <%= f.label :name, class: "text-grey mb-2" %>
+      <%= f.text_field :name, placeholder: "Clark Kent", class: "appearance-none border-2 border-grey rounded p-2", autofocus: true, autocomplete: "name" %>
+      <% unless resource.errors.messages[:name].empty? %>
+        <p class="text-sm mb-2 mt-1 text-red">Name <%= resource.errors.messages[:name][0] %></p>
+      <% else %>
+        <div class="mb-3"></div>
+      <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+      <%= f.label :email, class: "text-grey mb-2" %>
+      <%= f.email_field :email, placeholder: "clark@kent.co", class: "appearance-none border-2 border-grey rounded p-2", autocomplete: "email" %>
+      <% unless resource.errors.messages[:email].empty? %>
+        <p class="text-sm mb-2 mt-1 text-red">Email address <%= resource.errors.messages[:email][0] %></p>
+      <% else %>
+        <div class="mb-3"></div>
+      <% end %>
+
+      <%= f.label :password, class: "text-grey mb-2" %>
+      <%= f.password_field :password, placeholder: "#{minimum_password_length ? minimum_password_length.to_s + ' characters minimum' : '' }", class: "appearance-none border-2 border-grey rounded p-2", autocomplete: "off" %>
+      <% unless resource.errors.messages[:password].empty? %>
+        <p class="text-sm mb-2 mt-1 text-red">Password <%= resource.errors.messages[:password][0] %></p>
+      <% else %>
+        <div class="mb-3"></div>
+      <% end %>
+      <%= f.label :password_confirmation, "Confirm password", class: "text-grey mb-2" %>
+      <%= f.password_field :password_confirmation, placeholder: "Type your password again", class: "appearance-none border-2 border-grey rounded p-2", autocomplete: "off" %>
+      <% unless resource.errors.messages[:password_confirmation].empty? %>
+        <p class="text-sm mb-1 mt-1 text-red">Password confirmation <%= resource.errors.messages[:password_confirmation][0] %></p>
+      <% else %>
+        <div class="mb-3"></div>
+      <% end %>
+      <%= f.submit "Let me in!", class: "bg-purple p-2 py-3 mt-3 font-bold rounded-full text-white text-center" %>
+    <% end %>
+    <div class="w-full flex flex-col mt-1">
+      <%= render "devise/shared/links" %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

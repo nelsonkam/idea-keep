@@ -1,8 +1,11 @@
-<div class="h-screen bg-purple text-white py-4" style="padding-left: 5%; padding-right: 5%;">
+<div class="min-h-screen bg-purple text-white py-4" style="padding-left: 5%; padding-right: 5%;">
   <div class="flex justify-between items-baseline">
     <p class="text-lg font-bold">💡 idea keep</p>
     <div class="white shadow-md rounded-full bg-white px-4 py-2 text-lg">
-      <a href="" class='no-underline text-purple'><span class="hidden md:flex">Already have an account ?</span> <span class="md:hidden">Login</span></a>
+    <%# <%= link_to "Log out", destroy_user_session_path, method: :delete %> 
+      <%= link_to new_user_session_path, class: "no-underline text-purple" do %>
+        <span class="hidden md:flex">Already have an account ?</span> <span class="md:hidden">Login</span>
+      <% end %>
     </div>
   </div>
   <br>
@@ -17,7 +20,23 @@
         <p class="text-center text-purple text-xl mb-3">
           Create an account
         </p>
-        <form action="" class="flex flex-col">
+        <%= form_for(resource, html: { class: "flex flex-col text-grey" }, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= f.label :name, class: "text-grey mb-2" %>
+          <%= f.text_field :name, placeholder: "Clark Kent", class: "appearance-none border-2 border-grey rounded p-2 mb-3", autofocus: true, autocomplete: "name" %>
+          <%= f.label :email, class: "text-grey mb-2" %>
+          <%= f.email_field :email, placeholder: "clark@kent.co", class: "appearance-none border-2 border-grey rounded p-2 mb-3", autocomplete: "email" %>
+
+          <%= f.label :password, class: "text-grey mb-2" %>
+          <%= f.password_field :password, placeholder: "#{minimum_password_length ? minimum_password_length.to_s + ' characters minimum' : '' }", class: "appearance-none border-2 border-grey rounded p-2 mb-3", autocomplete: "off" %>
+
+          <%= f.label :password_confirmation, "Confirm password", class: "text-grey mb-2" %>
+          <%= f.password_field :password_confirmation, placeholder: "Type your password again", class: "appearance-none border-2 border-grey rounded p-2 mb-3", autocomplete: "off" %>
+
+          <%= f.submit "Let me in!", class: "bg-purple p-2 py-3 mt-3 font-bold rounded-full text-white text-center" %>
+          <p class="text-green"><%= notice %></p>
+          <p class="text-red mt-2 text-center"><%= alert %></p>
+        <% end %>
+        <form action="" class="hidden">
           <label class="text-grey mb-2" for="">Name</label>
           <input type="text" class="appearance-none border-2 border-grey rounded p-2 mb-3" placeholder="Clark Kent">
           <label class="text-grey mb-2" for="">Email address</label>

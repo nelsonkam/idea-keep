@@ -6,13 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>IdeaKeep</title>
     <%= csrf_meta_tags %>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+  <% if alert %>
+    <div class="animated slideInDown absolute pin-t pin-x p-3 text-center z-50" >
+      <div class="text-red shadow-md rounded bg-white p-3 w-full md:w-1/2 lg:w-2/5 mx-auto">
+        <%= alert %>
+      </div>
+    </div>
+  <% end %>
+  <% if notice %>
+    <div class="animated slideInDown absolute pin-t pin-x p-3 text-center z-50" >
+      <div class="text-green shadow-md rounded bg-white p-3 w-full md:w-1/2 lg:w-2/5 mx-auto">
+        <%= notice %>
+      </div>
+    </div>
+  <% end %>
     <%= yield %>
   </body>
 </html>
