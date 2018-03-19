@@ -2,6 +2,13 @@
   <div class="bg-white w-full shadow-md rounded-lg p-4 mx-4" style="max-width: 360px;">
     <p class="text-2xl text-center font-bold text-black mb-3">Change your password</p>
     <%= form_for(resource, html: { class: "flex flex-col text-grey", method: :put }, as: resource_name, url: password_path(resource_name)) do |f| %>
+      <%= resource.errors.to_json %>      
+      <%= f.hidden_field :reset_password_token %>
+       <% unless resource.errors.messages[:reset_password_token].empty? %>
+        <p class="text-sm mb-2 mt-1 text-red">Your token <%= resource.errors.messages[:reset_password_token][0] %></p>
+      <% else %>
+        <div class="mb-3"></div>
+      <% end %>
       <%= f.label :password, "New password", class: "text-grey mb-2" %>
       <%= f.password_field :password, placeholder: "#{minimum_password_length ? minimum_password_length.to_s + ' characters minimum' : '' }", class: "appearance-none border-2 border-grey rounded p-2", autocomplete: "off" %>
       <% unless resource.errors.messages[:password].empty? %>
